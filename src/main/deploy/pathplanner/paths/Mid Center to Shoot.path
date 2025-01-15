@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.27,
+        "y": 5.78
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.100841096269087,
+        "y": 6.373314171129768
+      },
+      "isLocked": false,
+      "linkedName": "Mid Shoot to Center"
+    },
+    {
+      "anchor": {
+        "x": 1.8852482149408742,
+        "y": 5.78
+      },
+      "prevControl": {
+        "x": 6.37580352083781,
+        "y": 7.519341306488881
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 220.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -5.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
