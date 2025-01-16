@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+//import com.pathplanner.lib.auto.AutoBuilder;
+//import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+/* */
 import frc.robot.commands.AprilTagAiming;
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.ClimbDownCommand;
@@ -85,6 +86,7 @@ public class RobotContainer {
     */
 
     // Build an auto chooser. This will use Commands.none() as the default option.
+    /*  NOT INSTALLED
     autoChooser.addOption("P 0-Note", AutoBuilder.buildAuto("P 0-Note"));
     autoChooser.addOption("P 1-Note; High", AutoBuilder.buildAuto("P 1-Note; High"));
     // 1-Note Mid?
@@ -98,6 +100,7 @@ public class RobotContainer {
     autoChooser.addOption("Mid 4 Shot", AutoBuilder.buildAuto("Mid 4 Shot"));
     autoChooser.addOption("Fun and Games", AutoBuilder.buildAuto("Fun And Games"));
     SmartDashboard.putData("Auto Chooser", autoChooser);
+    */
 
     // Configure the button bindings
     configureButtonBindings();
