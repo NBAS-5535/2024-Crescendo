@@ -20,6 +20,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -54,6 +56,10 @@ public class DriveSubsystem extends SubsystemBase {
   // The gyro sensor
   //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   private final AHRS m_gyro = new AHRS(I2C.Port.kMXP);
+
+  /* AdvantageScope hook */
+  private final StructArrayPublisher<SwerveModuleState> publisher = NetworkTableInstance.getDefault()
+      .getStructArrayTopic("/SwerveStates", SwerveModuleState.struct).publish();
 
   // PID for teleop drift adjustment
   private final PIDController rotationPID;
@@ -141,6 +147,9 @@ public class DriveSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Mod2ANG", m_frontRight.getAngVel());
     // SmartDashboard.putNumber("Mod3ANG", m_rearLeft.getAngVel());
     // SmartDashboard.putNumber("Mod4ANG", m_rearRight.getAngVel());
+
+    /* See states on AdvantageScope */
+    setPublisherStates();
   }
 
   /**
@@ -336,5 +345,29 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  /* my special functions */
+  public double[] getCurrentChasisSpeeds() {
+    double loggingState[] = {m_frontLeft.getState().angle.getDegrees(),
+      m_frontLeft.getState().speedMetersPerSecond,
+      m_frontRight.getState().angle.getDegrees(),
+      m_frontRight.getState().speedMetersPerSecond,
+      m_rearLeft.getState().angle.getDegrees(),
+      m_rearLeft.getState().speedMetersPerSecond,
+      m_rearRight.getState().angle.getDegrees(),
+      m_rearRight.getState().speedMetersPerSecond};
+
+      return loggingState;
+  }
+
+  public void setPublisherStates(){
+    double [] currentState = getCurrentChasisSpeeds();
+    publisher.set(new SwerveModuleState[] {
+      new SwerveModuleState(currentState[1], Rotation2d.fromDegrees(currentState[0])),
+      new SwerveModuleState(currentState[3], Rotation2d.fromDegrees(currentState[2])),
+      new SwerveModuleState(currentState[5], Rotation2d.fromDegrees(currentState[4])),
+      new SwerveModuleState(currentState[7], Rotation2d.fromDegrees(currentState[6]))
+    });
   }
 }
